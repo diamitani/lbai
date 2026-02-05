@@ -39,42 +39,47 @@ export default function ToolsGrid({ category, searchQuery = "" }: ToolsGridProps
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {filteredTools.map((tool) => (
-        <Card key={tool.id} className="flex flex-col bg-card/50 backdrop-blur-sm border-white/10 hover:border-primary/50 transition-colors group">
+        <Card key={tool.id} className="flex flex-col bg-card/50 backdrop-blur-sm border-white/10 hover:border-primary/50 transition-colors group relative overflow-hidden">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-start gap-2">
               <CardTitle className="text-lg font-bold text-white group-hover:text-primary transition-colors">{tool.name}</CardTitle>
-              {tool.featured && <Star className="h-5 w-5 text-yellow-500 fill-yellow-500 shrink-0" />}
+              {tool.featured && <Star className="h-4 w-4 text-yellow-500 fill-yellow-500 shrink-0" />}
             </div>
-            <Badge variant="secondary" className="mt-1 w-fit bg-secondary/50 hover:bg-secondary">
-              {tool.category}
-            </Badge>
+            <div className="flex gap-2 mt-1 flex-wrap">
+              <Badge variant="secondary" className="bg-secondary/50 text-[10px] py-0 px-2 h-5">
+                {tool.category}
+              </Badge>
+              <Badge variant="outline" className={`text-[10px] py-0 px-2 h-5 ${tool.type === 'Custom GPT' ? 'border-orange-500/50 text-orange-400' : 'border-blue-500/50 text-blue-400'}`}>
+                {tool.type}
+              </Badge>
+            </div>
           </CardHeader>
           <CardContent className="py-4 flex-grow space-y-4">
-            <p className="text-muted-foreground text-sm line-clamp-3">{tool.description}</p>
+            <p className="text-muted-foreground text-sm line-clamp-3 leading-relaxed">{tool.description}</p>
 
             {tool.educationalValue && (
-              <div className="text-xs text-primary/80 italic border-l-2 border-primary/30 pl-2">
-                " {tool.educationalValue} "
+              <div className="text-[11px] text-primary/80 italic border-l-2 border-primary/30 pl-2 py-0.5">
+                "{tool.educationalValue}"
               </div>
             )}
 
             <div className="flex flex-wrap gap-2">
               {tool.useCase && (
-                <Badge variant="outline" className="text-xs border-white/10 text-muted-foreground">
+                <Badge variant="outline" className="text-[10px] border-white/10 text-muted-foreground py-0">
                   {tool.useCase}
                 </Badge>
               )}
               {tool.industry && (
-                <Badge variant="outline" className="text-xs border-white/10 text-muted-foreground">
+                <Badge variant="outline" className="text-[10px] border-white/10 text-muted-foreground py-0">
                   {tool.industry}
                 </Badge>
               )}
             </div>
           </CardContent>
           <CardFooter className="pt-0">
-            <Button className="w-full bg-primary/20 hover:bg-primary/40 text-primary-foreground border border-primary/20" asChild>
+            <Button className={`${tool.type === 'Custom GPT' ? 'bg-orange-500/10 border-orange-500/20 text-orange-300 hover:bg-orange-500/30' : 'bg-primary/20 hover:bg-primary/40 text-primary-foreground'} w-full border border-primary/20`} asChild>
               <Link href={tool.affiliateLink || tool.link} target="_blank" rel="noopener noreferrer">
-                {tool.affiliateLink ? "Get Started (Partner)" : "Open Tool"}
+                {tool.type === 'Custom GPT' ? 'Try GPT' : 'Open Tool'}
                 <ExternalLink className="ml-2 h-4 w-4" />
               </Link>
             </Button>

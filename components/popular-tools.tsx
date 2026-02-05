@@ -15,16 +15,10 @@ export default function PopularTools() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">Popular AI Tools</h2>
           <p className="text-muted-foreground text-lg">
-            Discover our featured custom GPTs to enhance your productivity and workflow.
+            Discover our featured AI tools and custom GPTs to supercharge your workflow.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 mt-4 md:mt-0">
-          <Button variant="outline" asChild>
-            <Link href="https://gptpataitools.vercel.app" target="_blank" rel="noopener noreferrer">
-              Additional Tools
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
           <Button variant="ghost" asChild>
             <Link href="/tools">
               View All Tools
@@ -36,23 +30,28 @@ export default function PopularTools() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {featuredTools.map((tool) => (
-          <Card key={tool.id} className="flex flex-col">
+          <Card key={tool.id} className="flex flex-col bg-card/50 border-white/10 hover:border-primary/50 transition-all group">
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
-                <CardTitle className="text-lg">{tool.name}</CardTitle>
-                <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                <CardTitle className="text-lg font-bold group-hover:text-primary transition-colors">{tool.name}</CardTitle>
+                <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
               </div>
-              <Badge variant="secondary" className="mt-1 w-fit">
-                {tool.category}
-              </Badge>
+              <div className="flex gap-2 items-center mt-1">
+                <Badge variant="secondary" className="text-[10px] py-0 px-2">
+                  {tool.category}
+                </Badge>
+                <span className={`text-[10px] font-medium uppercase tracking-wider ${tool.type === 'Custom GPT' ? 'text-orange-400' : 'text-blue-400'}`}>
+                  {tool.type}
+                </span>
+              </div>
             </CardHeader>
             <CardContent className="py-4 flex-grow">
-              <p className="text-muted-foreground text-sm">{tool.description}</p>
+              <p className="text-muted-foreground text-sm line-clamp-2">{tool.description}</p>
             </CardContent>
             <CardFooter className="pt-0">
-              <Button className="w-full" asChild>
+              <Button className={`${tool.type === 'Custom GPT' ? 'bg-orange-500/10 border-orange-500/20 text-orange-300 hover:bg-orange-500/30' : 'bg-primary/20 hover:bg-primary/40 text-primary-foreground'} w-full border border-primary/20`} asChild>
                 <Link href={tool.link} target="_blank" rel="noopener noreferrer">
-                  Open GPT
+                  {tool.type === 'Custom GPT' ? 'Try GPT' : 'Try Tool'}
                   <ExternalLink className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
