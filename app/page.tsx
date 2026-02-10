@@ -16,36 +16,39 @@ export default function Home() {
     <div className="flex flex-col gap-12 pb-20">
       <Hero />
 
-      {/* Community & Trends Section */}
-      <section className="container py-8">
-        <div className="flex flex-col gap-8">
-          <div className="flex items-center justify-between border-b border-white/5 pb-4">
-            <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-              </span>
-              Community Buzz
-            </h2>
-            <span className="text-sm text-muted-foreground">Live from Reddit</span>
-          </div>
-          <TrendingList />
-        </div>
-      </section>
-
-      {/* Latest AI News & Tutorials Grid - BIGGER SECTION */}
+      {/* Latest AI News & Tutorials with Sidebar */}
       <section className="container">
-        <div className="flex flex-col gap-8">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <h2 className="text-3xl font-bold tracking-tight text-white">Latest in AI</h2>
-              <p className="text-muted-foreground">The most recent breakthroughs, tutorials, and automations.</p>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Main Content - Articles */}
+          <div className="flex-1 lg:w-2/3 flex flex-col gap-8">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h2 className="text-3xl font-bold tracking-tight text-white">Latest in AI</h2>
+                <p className="text-muted-foreground">The most recent breakthroughs, tutorials, and automations.</p>
+              </div>
+              <a href="/blog" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
+                View all articles →
+              </a>
             </div>
-            <a href="/blog" className="text-sm font-medium text-violet-400 hover:text-violet-300 transition-colors">
-              View all articles →
-            </a>
+            <BlogGrid articles={latestArticles} />
           </div>
-          <BlogGrid articles={latestArticles} />
+
+          {/* Sidebar - Community Buzz */}
+          <aside className="lg:w-1/3">
+            <div className="sticky top-24 flex flex-col gap-6">
+              <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                  <span className="relative flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                  </span>
+                  Community Buzz
+                </h2>
+              </div>
+              <div className="text-sm text-muted-foreground mb-2">Live from Reddit</div>
+              <TrendingList />
+            </div>
+          </aside>
         </div>
       </section>
 
